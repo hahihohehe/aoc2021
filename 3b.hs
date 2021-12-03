@@ -44,14 +44,4 @@ isChar index char str = str!!index == char
 filterRounds :: ([String] -> String) -> [String] -> [String]
 filterRounds bitmapGen = filterRound 0 where
   filterRound idx [x] = [x]
-  filterRound idx lines = filterRound (idx+1) $ myFilter (isChar idx ((bitmapGen lines)!!idx)) lines
-
-
--- Filters until there is only one item left
-myFilter :: (a -> Bool) -> [a] -> [a]
-myFilter cond list = myFilterAcc [] list where
-  myFilterAcc [] [x] = [x]
-  myFilterAcc acc (x:xs)
-    | cond x = myFilterAcc (x:acc) xs
-    | otherwise = myFilterAcc acc xs
-  myFilterAcc acc [] = reverse acc
+  filterRound idx lines = filterRound (idx+1) $ filter (isChar idx ((bitmapGen lines)!!idx)) lines
